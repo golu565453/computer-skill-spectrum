@@ -37,6 +37,32 @@ const CourseCard: React.FC<CourseCardProps> = ({
     }
   };
 
+  const handleEnroll = () => {
+    // Create a course object with the same structure as in CourseSelectionList
+    const course = {
+      title,
+      description,
+      image,
+      duration,
+      students,
+      rating,
+      price,
+      level,
+    };
+
+    // Find enroll section and directly trigger course enrollment
+    const enrollSection = document.getElementById('enroll');
+    if (enrollSection) {
+      const enrollEvent = new CustomEvent('enrollCourse', { 
+        detail: { course }
+      });
+      document.dispatchEvent(enrollEvent);
+      
+      // Scroll to the enrollment section
+      enrollSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl overflow-hidden border border-border transition-standard transform hover:translate-y-[-5px] hover:shadow-lg card-shadow group animate-scale-in">
       <div className="relative overflow-hidden h-48">
@@ -71,7 +97,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         
         <div className="flex items-center justify-between">
           <span className="font-bold text-lg">{price}</span>
-          <Button variant="outline" className="rounded-full">Enroll Now</Button>
+          <Button variant="outline" className="rounded-full" onClick={handleEnroll}>Enroll Now</Button>
         </div>
       </div>
     </div>

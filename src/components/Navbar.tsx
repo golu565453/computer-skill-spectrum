@@ -18,6 +18,27 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleEnrollClick = () => {
+    // Find and scroll to the enrollment section
+    const enrollSection = document.getElementById('enroll');
+    if (enrollSection) {
+      enrollSection.scrollIntoView({ behavior: 'smooth' });
+      
+      // After scrolling, find and click the enroll button in that section
+      setTimeout(() => {
+        const enrollButton = enrollSection.querySelector('button');
+        if (enrollButton) {
+          enrollButton.click();
+        }
+      }, 800);
+    }
+    
+    // Close mobile menu if open
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -44,7 +65,7 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:block">
-          <Button className="rounded-full px-6">Enroll Now</Button>
+          <Button className="rounded-full px-6" onClick={handleEnrollClick}>Enroll Now</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -75,7 +96,7 @@ const Navbar = () => {
               {item}
             </a>
           ))}
-          <Button className="rounded-full w-full mt-6">Enroll Now</Button>
+          <Button className="rounded-full w-full mt-6" onClick={handleEnrollClick}>Enroll Now</Button>
         </nav>
       </div>
     </header>

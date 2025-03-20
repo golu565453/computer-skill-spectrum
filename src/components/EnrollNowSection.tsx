@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
@@ -23,6 +23,26 @@ const EnrollNowSection = () => {
     setIsSheetOpen(false);
     setSelectedCourse(null);
   };
+
+  // Listen for the custom event from CourseCard
+  useEffect(() => {
+    const handleEnrollCourse = (event: CustomEvent) => {
+      setIsSheetOpen(true);
+      // If a specific course was passed, select it right away
+      if (event.detail?.course) {
+        setSelectedCourse(event.detail.course);
+      } else {
+        setSelectedCourse(null);
+      }
+    };
+
+    // Need to cast to any because TypeScript doesn't know about our custom event
+    document.addEventListener('enrollCourse', handleEnrollCourse as any);
+    
+    return () => {
+      document.removeEventListener('enrollCourse', handleEnrollCourse as any);
+    };
+  }, []);
 
   return (
     <section id="enroll" className="section-padding bg-gradient-to-b from-white to-blue-50">
