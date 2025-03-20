@@ -43,7 +43,7 @@ const TestimonialsSection = () => {
       role: 'Mobile Developer',
       company: 'Uber',
       image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop',
-      content: 'Learning React Native at TechMaster was one of the best decisions I've made. The project-based curriculum helped me build a portfolio that impressed my current employer.',
+      content: "Learning React Native at TechMaster was one of the best decisions I've made. The project-based curriculum helped me build a portfolio that impressed my current employer.",
       rating: 4
     },
     {
@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
       role: 'Cloud Architect',
       company: 'Amazon',
       image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop',
-      content: 'The AWS certification course was comprehensive and well-structured. The instructors had deep industry knowledge and provided insights beyond what's covered in standard materials.',
+      content: "The AWS certification course was comprehensive and well-structured. The instructors had deep industry knowledge and provided insights beyond what's covered in standard materials.",
       rating: 5
     },
   ];
