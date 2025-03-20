@@ -1,9 +1,29 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import CourseSelectionList from '@/components/CourseSelectionList';
+import CourseEnrollmentForm from '@/components/CourseEnrollmentForm';
 
 const EnrollNowSection = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+
+  const handleEnrollClick = () => {
+    setIsSheetOpen(true);
+    setSelectedCourse(null);
+  };
+
+  const handleCourseSelect = (course: any) => {
+    setSelectedCourse(course);
+  };
+
+  const handleCloseSheet = () => {
+    setIsSheetOpen(false);
+    setSelectedCourse(null);
+  };
+
   return (
     <section id="enroll" className="section-padding bg-gradient-to-b from-white to-blue-50">
       <div className="container-centered">
@@ -28,7 +48,7 @@ const EnrollNowSection = () => {
               </div>
               
               <div className="grid grid-cols-1 gap-3">
-                <Button className="w-full py-6 text-base rounded-lg">
+                <Button className="w-full py-6 text-base rounded-lg" onClick={handleEnrollClick}>
                   Enroll Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <p className="text-center text-sm text-muted-foreground">
@@ -62,6 +82,29 @@ const EnrollNowSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Course Selection and Enrollment Sheet */}
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+        <SheetContent className="w-full sm:max-w-md md:max-w-lg overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>{selectedCourse ? `Enroll in ${selectedCourse.title}` : "Select a Course"}</SheetTitle>
+            <SheetDescription>
+              {selectedCourse 
+                ? "Please fill out the form below to enroll in this course" 
+                : "Browse our available courses and select one to enroll"}
+            </SheetDescription>
+          </SheetHeader>
+          
+          {selectedCourse ? (
+            <CourseEnrollmentForm 
+              course={selectedCourse} 
+              onClose={handleCloseSheet}
+            />
+          ) : (
+            <CourseSelectionList onSelectCourse={handleCourseSelect} />
+          )}
+        </SheetContent>
+      </Sheet>
     </section>
   );
 };
